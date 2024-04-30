@@ -1,3 +1,3 @@
-import {ClassArray, clsx} from "clsx";
+import { type ClassArray, clsx } from "clsx";
 
-export const cn = (...props: ClassArray) => clsx(...props)
+export const cn = (...props: ClassArray) => clsx(...props);

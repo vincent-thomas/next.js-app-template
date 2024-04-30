@@ -1,5 +1,5 @@
 const Page = () => {
-  return (<>page not found</>)
-}
+  return <>page not found</>;
+};
 
 export default Page;

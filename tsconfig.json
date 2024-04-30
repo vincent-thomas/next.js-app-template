@@ -6,12 +6,16 @@
       "esnext"
     ],
     "allowJs": true,
+    "types": [
+      "vitest/globals"
+    ],
     "skipLibCheck": true,
     "strict": true,
     "target": "es2017",
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
+    "rootDir": ".",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
