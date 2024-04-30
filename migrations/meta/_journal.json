@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1714431640072,
+      "tag": "0000_productive_master_mold",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1714434855127,
+      "tag": "0001_secret_slyde",
+      "breakpoints": true
+    }
+  ]
+}

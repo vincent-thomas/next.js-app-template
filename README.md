@@ -1,0 +1,3 @@
+# Stack
+- Nextjs
+- React Server
