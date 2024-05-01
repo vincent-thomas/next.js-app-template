@@ -1,4 +1,4 @@
-import { generateCodeVerifier, generateState } from "arctic";
+import { generateCodeVerifier, generateState } from "@/backend/auth/utils";
 import { generateOauth2AuthUrl } from ".";
 import { parse, string, url } from "valibot";
 
