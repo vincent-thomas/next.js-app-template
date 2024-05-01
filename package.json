@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --no-lint",
+    "build": "SKIP_ENV_VALIDATION='1' build --no-lint",
     "lint": "biome check .",
     "db:generate": "SKIP_ENV_VALIDATION='1' drizzle-kit generate:sqlite",
     "db:migrate": "dotenv -c local -- tsx ./scripts/migrate-runner.ts",
-    "test": "dotenv -c local -- vitest run"
+    "test": "SKIP_ENV_VALIDATION='1' vitest run"
   },
   "type": "module",
   "dependencies": {
