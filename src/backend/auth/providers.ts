@@ -5,6 +5,7 @@ export const github = new GitHub(
   env.githubOauth2AppId,
   env.githubOauth2Secret,
   {
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     redirectURI: "http://localhost:3000/auth/github"
   }
 );
