@@ -1,0 +1,65 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request: 
+    branches: [main]
+
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run test
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+
+      - run: bun install --frozen-lockfile
+      - run: SKIP_ENV_VALIDATION='1' bun run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-bundle
+          path: |
+            .next/static
+            .next/standalone
+            public
+            Dockerfile
+          retention-days: 1
+          overwrite: true
+
+  deploy:
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    permissions:
+      packages: write
+      contents: read
+    needs:
+      - test
+      - build
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: app-bundle
+
+      - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION

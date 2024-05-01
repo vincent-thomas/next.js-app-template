@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --no-lint",
-    "start": "next start",
     "lint": "biome check .",
     "db:generate": "SKIP_ENV_VALIDATION='1' drizzle-kit generate:sqlite",
     "db:migrate": "dotenv -c local -- tsx ./scripts/migrate-runner.ts",
