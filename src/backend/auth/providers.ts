@@ -6,12 +6,12 @@ export const github = new GitHub(
   env.githubOauth2Secret,
   {
     // biome-ignore lint/style/useNamingConvention: <explanation>
-    redirectURI: "http://localhost:3000/auth/github"
+    redirectURI: `${env.appUrl}/auth/github`
   }
 );
 
 export const google = new Google(
   env.googleOauth2AppId,
   env.googleOauth2Secret,
-  "http://localhost:3000/auth/google"
+  `${env.appUrl}/auth/google`
 );
