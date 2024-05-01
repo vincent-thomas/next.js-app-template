@@ -8,6 +8,7 @@ on:
 
 env:
   NEXT_TELEMETRY_DISABLED: "1"
+  IMAGE_NAME: example-docker
 
 jobs:
   test:
