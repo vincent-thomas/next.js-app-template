@@ -6,6 +6,8 @@ on:
   pull_request: 
     branches: [main]
 
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
   test:
@@ -25,6 +27,9 @@ jobs:
 
       - run: bun install --frozen-lockfile
       - run: SKIP_ENV_VALIDATION='1' bun run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_TOKEN: ${{ secrets.DATABASE_TOKEN }}
       - uses: actions/upload-artifact@v4
         with:
           name: app-bundle
